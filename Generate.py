@@ -100,16 +100,6 @@ def makeModel(dirc, artists, search):
     else:
       model = mkfy.combine([model, m], [total, amount])
       total += amount
-    # else:
-    #   m, amount = readModel(dirc+artists[i]+'.model')
-    #   amount = int(amount)
-    #   print(i,':\tAdding:', amount, '\tsongs from:\t',artists[i])
-    #   if model == None:
-    #     model = m
-    #     total += amount
-    #   else:
-    #     model = mkfy.combine([model, m], [total, amount])
-    #     total += amount
     m = None
   print('Amount of Songs:', total)
   return model
