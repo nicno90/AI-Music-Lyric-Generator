@@ -91,6 +91,13 @@ def handleCommand(cmd):
     if (len(cmdA) < 2):
       print('Error: Strange params:\nShould be: setArtist Artist_Name')
     setArtist(cmdA[1:])
+  elif (cmdA[0] == 'artistExsist'):
+    if (len(cmdA) != 2):
+      print('Error: Strange params:\nShould be: artistsExsist Artist_Name')
+    if (fileExsists('model/'+cmd[1]+'.model')):
+      print('Found Artist')
+    else:
+      print('Counldn\'t find artist')
   else:
     print('Unkown Command')
 
