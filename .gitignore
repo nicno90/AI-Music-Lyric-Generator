@@ -1,2 +1,4 @@
 /models
 !.gitignore
+/.vscode
+/__pycache__

@@ -12,7 +12,7 @@ def readModel(filename):
   return model
 
 def newSong(model, length):
-  print('New Song:')
+  print('\n')
   for i in range(length):
     sent = model.make_sentence().replace('*', '\'')
     # sent = sent.replace('#', '\n')
@@ -30,3 +30,4 @@ def main():
     length = int(sys.argv[2])
     newSong(model, length)
 
+#main()
