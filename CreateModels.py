@@ -49,7 +49,7 @@ def concatArtist(file, info):
   return mkfy.combine(models), info, amnt
 
 def formatArtistName(info):
-  print('info[0]:', info)
+  # print('info[0]:', info)
   artist = info[0]
   if artist[0] == "\"":
     for i in range(1, len(info)):
