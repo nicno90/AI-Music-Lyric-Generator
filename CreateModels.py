@@ -49,16 +49,15 @@ def concatArtist(file, info):
   return mkfy.combine(models), info, amnt
 
 def formatArtistName(info):
-  #print('info[0]:', info[0])
+  print('info[0]:', info)
   artist = info[0]
   if artist[0] == "\"":
     for i in range(1, len(info)):
-      artist = artist + info[i]
+      artist = artist +'_' + info[i]
       if info[i][-1] == "\"":
         artist = artist[1:-1]
         #print('Fixed artist name:', info, artist)
         break
-  artist = artist.replace(' ', '_')
   artist = artist.replace('.', '')
   return artist
 
@@ -100,15 +99,27 @@ def writeModelsFiles(models, artists, songs, artistFilename='artistsIndex.idx', 
     f.close()
   print('Models Saved!')
 
+def run(filename):
+  print('Reading', filename)
+  file = open(filename, 'r')
+  headers = file.readline()
+  # print('Headers:', headers)
+  models, artists, songs = concatData(file)
+  print('Found', len(artists), len(models), 'artists in the data-set!')
+  file.close()
+  # fullModel = mkfy.combine(models, weights)
+  writeModelsFiles(models, artists, songs)
+  print('Models have been generated')
+
 def main():
   file = open('Data/songdata.csv', 'r')
   headers = file.readline()
   # print('Headers:', headers)
   models, artists, songs = concatData(file)
-  print('Found', len(artists), len(models), 'artists in the data-set!\nSaving models...')
+  print('Found', len(artists), len(models), 'artists in the data-set!')
   file.close()
   # fullModel = mkfy.combine(models, weights)
   writeModelsFiles(models, artists, songs)
-  print('Create Models Complete!')
+  print('Models have been generated')
 
-main()
+# main()

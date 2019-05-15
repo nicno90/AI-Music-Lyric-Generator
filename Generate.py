@@ -8,12 +8,11 @@ def formatArtistName(artist):
   artist = artist.replace('.', '')
   return artist
 
-def handelArguments():
+def handelArguments(args=['-txt', 'sampleArtists.txt']):
   dirc = 'models/'
   dic = 'artistsIndex.idx'
   artists = []
   search = []
-  args = sys.argv[1:]
   print('args:',args)
   if (len(args) > 0):
     if (len(args) > 1):
@@ -22,7 +21,7 @@ def handelArguments():
         args.remove('-dir')
         dirc = args[index]
         args.remove(dirc)
-        print('Seting model directory to:',dirc)
+        print('Setting model directory to:',dirc)
       if '-dic' in args:
         index = args.index('-dic')
         args.remove('-dic')
@@ -55,7 +54,6 @@ def handelArguments():
             print('txt[i]',txt[i])
             search.append(txt[i])
           i += 1
-          
     search.extend(args)
     print('Searching for:', search)
     for i in range(len(search)):
@@ -85,7 +83,7 @@ def readModel(filename):
   model = mkfy.Text.from_json(json)
   return model, amount
 
-def makeModel(dirc, artists, search):
+def makeModel(dirc, search):
   model = None
   total = 0
   print('Amount of Artist:', len(search))
@@ -93,7 +91,7 @@ def makeModel(dirc, artists, search):
     #if (artists[i] in search):
     m, amount = readModel(dirc+search[i]+'.model')
     amount = int(amount)
-    print(i,':\tAdding:', amount, '\tDouble Weight:\t',search[i])
+    print(i,':\tAdding:', amount, '\tfrom artist:\t',search[i])
     if model == None:
       model = m
       total += amount
@@ -104,19 +102,29 @@ def makeModel(dirc, artists, search):
   print('Amount of Songs:', total)
   return model
 
+
 def saveModel(model, dirc, name):
   print('Saving:', dirc+name+'.model')
   f = open(dirc+name+'.model', 'w+')
   f.write(model.to_json())
   f.close()
 
+def run(args):
+  start = time.time()
+  dirc, dic, search = handelArguments(args)
+  if (type(dic) == int): return -1
+  artists = readArtists(dirc, dic)
+  model = makeModel(dirc, search)
+  saveModel(model, dirc, 'main')
+  print('Time:',(time.time() - start))
+
 def main():
   start = time.time()
-  dirc, dic, search = handelArguments()
+  dirc, dic, search = handelArguments(sys.argv[1:])
   if (type(dic) == int): return -1
   artists = readArtists(dirc, dic)
   model = makeModel(dirc, artists, search)
   saveModel(model, dirc, 'main')
   print('Time:',(time.time() - start))
 
-main()
+# main()

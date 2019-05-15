@@ -1,0 +1,3 @@
+generateModels <filename="Data/songData.csv">\n')
+generates all artist models for dataSet at filename
+filename="Data/songData.csv" by default (recomended)

@@ -16,12 +16,15 @@ def newSong(model, length):
   for i in range(length):
     print(model.make_sentence().replace('*', ' '))
 
+def run(model, length):
+  newSong(readModel(model), length)
 
-if len(sys.argv) != 3:
-  print('Error: python GenerateSong.py [ModelName] [songLength]')
-else:
-  print(sys.argv)
-  model = readModel(sys.argv[1])
-  length = int(sys.argv[2])
-  newSong(model, length)
+def main():
+  if len(sys.argv) != 3:
+    print('Error: python GenerateSong.py [ModelName] [songLength]')
+  else:
+    print(sys.argv)
+    model = readModel(sys.argv[1])
+    length = int(sys.argv[2])
+    newSong(model, length)
 
