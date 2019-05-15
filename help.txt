@@ -1,3 +1,10 @@
-generateModels <filename="Data/songData.csv">\n')
-generates all artist models for dataSet at filename
-filename="Data/songData.csv" by default (recomended)
+-h | help                   Shows commands with requirments in [] and optional feilds in <>. The '+' indicates you can put more than one of that param
+setup                       Generates models from songdata.csv and sets the main.model
+newSong [length]            Creates a new song using the main.model, where [length] is the amount of lines in the song
+setMainModel [path]         Sets the main model to the model determined by [path]. For Example, 'setMainModel models/ABBA.model'
+newModel <-txt [path]> <Artist_Name | "Artist Name">+
+                            Generates the mainModel based on artists provided
+setArtist [Artist_Name | "Artist Name"]
+                            Sets the main model to the model of an Artist
+artistExsist [Artist_Name | "Artist Name"]
+                            Tells you whether the artist model exsists in models/

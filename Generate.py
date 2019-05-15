@@ -16,23 +16,6 @@ def handelArguments(args=['-txt', 'sampleArtists.txt']):
   print('args:',args)
   if (len(args) > 0):
     if (len(args) > 1):
-      if '-dir' in args:
-        index = args.index('-dir')
-        args.remove('-dir')
-        dirc = args[index]
-        args.remove(dirc)
-        print('Setting model directory to:',dirc)
-      if '-dic' in args:
-        index = args.index('-dic')
-        args.remove('-dic')
-        dic = args[index]
-        args.remove(dic)
-        if (os.path.isfile(dirc+dic)):
-          print('Setting artist index to:',dic)
-        else:
-          print('Could not find artist index:', dirc+dic)
-          print('Example format (should be stored in directory with .models):', 'artistsIndex.idx')
-          return -1, -1, -1
       if '-txt' in args:
         index = args.index('-txt')
         args.remove('-txt')
