@@ -48,10 +48,10 @@ def handelArguments(args=['-txt', 'sampleArtists.txt']):
               i += 1
               out = out +'_'+ txt[i]
             out = out[:-1]
-            print('out:',out)
+            #print('out:',out)
             search.append(out)
           else:
-            print('txt[i]',txt[i])
+            #print('txt[i]',txt[i])
             search.append(txt[i])
           i += 1
     search.extend(args)
@@ -106,7 +106,8 @@ def makeModel(dirc, search):
 def saveModel(model, dirc, name):
   print('Saving:', dirc+name+'.model')
   f = open(dirc+name+'.model', 'w+')
-  f.write(model.to_json())
+  json = model.to_json()
+  f.write(json)
   f.close()
 
 def run(args):
@@ -116,7 +117,7 @@ def run(args):
   artists = readArtists(dirc, dic)
   model = makeModel(dirc, search)
   saveModel(model, dirc, 'main')
-  print('Time:',(time.time() - start))
+  print('Time:',int(time.time() - start),'seconds')
 
 def main():
   start = time.time()

@@ -14,7 +14,9 @@ def readModel(filename):
 def newSong(model, length):
   print('New Song:')
   for i in range(length):
-    print(model.make_sentence().replace('*', ' '))
+    sent = model.make_sentence().replace('*', '\'')
+    # sent = sent.replace('#', '\n')
+    print(sent)
 
 def run(model, length):
   newSong(readModel(model), length)

@@ -8,15 +8,14 @@ def fixLine(line):
   line = line.replace(')', '')
   line = line.replace('[', '')
   line = line.replace(']', '')
-  line = line.replace('\' ', '\'*')
-  line = line.replace(' \'', '*\'')
+  line = line.replace('\'', '*')
   line = line.replace('"', '')
   return line
 
 
 def readSong(file):
   # line = file.readline()[1:]
-  text = "\n"
+  text = ""
   
   line = file.readline()
   #print('quote at song start:' ,line)
@@ -26,10 +25,17 @@ def readSong(file):
     text = text + fixLine(line)
     # print('readSong: line:', line)
     line = file.readline()
+    #print(len(line))
+    if ((line == '  \n' or line=='\n') and (text[-3] != '.' or text[-3] != '!' or text[-3] != '?')):
+      text = text[:-3] + '.\n'
+      #print(line)
   if line != "\"--\n":
     print('Error:',line)
   # print('readSong: nextInfo:', line)
-  return mkfy.NewlineText(text, retain_original=False)
+
+  # print('After:\n',text)
+  return mkfy.Text(text, retain_original=False)
+  #return mkfy.NewlineText(text, retain_original=False)
   
 
 def concatArtist(file, info):
@@ -45,7 +51,7 @@ def concatArtist(file, info):
     info = file.readline().split(',')
     models.append(model)
     amnt += 1
-  # print('Found\t', amnt, '\tsongs from\t', artist)
+  print('Found\t', amnt, '\tsongs from\t', artist)
   return mkfy.combine(models), info, amnt
 
 def formatArtistName(info):
@@ -74,11 +80,11 @@ def concatData(file):
       model, info, amount = concatArtist(file, info)
       models[index] = mkfy.combine([models[index], model])
       songs[index] = songs[index]+amount
-      print('Adding to artist[',index,']:',amount,'\tmore songs to', artist)
+      #print('Adding to artist[',index,']:',amount,'\tmore songs to', artist)
     else:
       artists.append(artist)
       model, info, amount = concatArtist(file, info)
-      print('Found new artist[',len(artists)-1,']:',amount,'\tsongs from', artist)
+      #print('Found new artist[',len(artists)-1,']:',amount,'\tsongs from', artist)
       songs.append(amount)
       models.append(model)
   return models, artists, songs
@@ -101,6 +107,7 @@ def writeModelsFiles(models, artists, songs, artistFilename='artistsIndex.idx', 
 
 def run(filename):
   print('Reading', filename)
+  print('Loading... (this might take a minute or 2)')
   file = open(filename, 'r')
   headers = file.readline()
   # print('Headers:', headers)

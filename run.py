@@ -71,6 +71,8 @@ def printHelp():
 
 
 def handleCommand(cmd):
+  if (len(cmd) == 0):
+    return
   cmdA = cmd.split()
   if (cmd == '-h' or cmd == '-help'):
     printHelp()
@@ -88,7 +90,7 @@ def handleCommand(cmd):
   elif (cmdA[0] == 'newModel'):
     handelgenMainModel(cmdA[1:])
   elif (cmdA[0] == 'setArtist'):
-    if (len(cmdA) < 2):
+    if (len(cmdA) != 2):
       print('Error: Strange params:\nShould be: setArtist Artist_Name')
     setArtist(cmdA[1:])
   elif (cmdA[0] == 'artistExsist'):
