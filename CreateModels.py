@@ -64,6 +64,7 @@ def formatArtistName(info):
         artist = artist[1:-1]
         #print('Fixed artist name:', info, artist)
         break
+  artist = artist.replace(' ', '_')
   artist = artist.replace('.', '')
   return artist
 
@@ -80,13 +81,14 @@ def concatData(file):
       model, info, amount = concatArtist(file, info)
       models[index] = mkfy.combine([models[index], model])
       songs[index] = songs[index]+amount
-      #print('Adding to artist[',index,']:',amount,'\tmore songs to', artist)
+      # print('Adding to artist[',index,']:',amount,'\tmore songs to', artist)
     else:
       artists.append(artist)
       model, info, amount = concatArtist(file, info)
-      #print('Found new artist[',len(artists)-1,']:',amount,'\tsongs from', artist)
+      # print('Found new artist[',len(artists)-1,']:',amount,'\tsongs from', artist)
       songs.append(amount)
       models.append(model)
+    
   return models, artists, songs
 
 def writeModelsFiles(models, artists, songs, artistFilename='artistsIndex.idx', dir='models/'):
