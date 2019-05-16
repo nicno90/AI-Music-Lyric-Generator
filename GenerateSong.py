@@ -14,7 +14,7 @@ def readModel(filename):
 def newSong(model, length):
   for i in range(length):
     sent = model.make_sentence().replace('*', '\'')
-    # sent = sent.replace('#', '\n')
+    sent = sent.replace('#', '\n')
     print(sent)
 
 def run(model, length):

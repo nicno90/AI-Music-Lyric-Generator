@@ -22,7 +22,7 @@ def readSong(file):
   line = file.readline()
   #print('first line of song:' ,line)
   while line != "\"--\n":
-    text = text + fixLine(line)
+    text = text + fixLine(line) + ' #'
     # print('readSong: line:', line)
     line = file.readline()
     #print(len(line))
